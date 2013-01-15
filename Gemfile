@@ -39,6 +39,8 @@ gem 'jquery-rails'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
+gem 'mongoid'
+
 group :development, :test do
 	gem 'rspec-rails'
 end

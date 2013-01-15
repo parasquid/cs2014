@@ -7,8 +7,8 @@ class Redirector < Sinatra::Base
   end
 
   get "/*" do
-    slug = params[:splat].last
-    redirect to(slug.numeric? ? challenge_url(slug) : member_url(slug))
+    slug = params[:splat].first
+    redirect to(slug.split('/').first.numeric? ? challenge_url(slug) : member_url(slug))
   end
 
   private
