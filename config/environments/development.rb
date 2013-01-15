@@ -28,4 +28,11 @@ ParasquidCs2014::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # https://rails.lighthouseapp.com/projects/8994/tickets/4676-reload-routes-on-each-request-in-dev-mode
+  service_reloader = ActiveSupport::FileUpdateChecker.new(Dir["app/services/**"]) { Rails.application.reload_routes! }
+
+  config.to_prepare do
+    service_reloader.execute_if_updated
+  end
 end

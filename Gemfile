@@ -37,3 +37,8 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'sinatra'
+gem 'sinatra-contrib'
+
+group :development, :test do
+	gem 'rspec-rails'
+end
