@@ -13,7 +13,7 @@ class Redirector < Sinatra::Base
 
   # rename this method to just 'get' for the tests to pass
   # the testing helpers for async_sinatra don't support mounted sinatra apps yet :(
-  get "/*" do
+  aget "/*" do
 
     # we run the stats collection in the next_tick method of EventMachine
     # so we don't block this request
