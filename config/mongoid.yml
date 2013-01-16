@@ -82,8 +82,6 @@ test:
 development:
   sessions:
     default:
-      database: parasquid_cs2014_production
-      hosts:
-        - localhost:27017
+      uri: <%= ENV['MONGOLAB_URI'] %>
       options:
   options:
