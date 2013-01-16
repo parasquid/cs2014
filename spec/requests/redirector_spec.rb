@@ -38,6 +38,11 @@ describe "redirector core" do
       response.should redirect_to('http://www.cloudspokes.com/members/josette1311')
     end
 
+    it 'redirects / to cloudspokes.com' do
+      get '/'
+      response.should redirect_to('http://www.cloudspokes.com/')
+    end
+
   end
 
 end

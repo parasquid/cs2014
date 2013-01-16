@@ -9,9 +9,11 @@ class Redirector < Sinatra::Base
   end
   register Sinatra::Async
 
+  BASE_URL = "http://www.cloudspokes.com"
+
   # rename this method to just 'get' for the tests to pass
   # the testing helpers for async_sinatra don't support mounted sinatra apps yet :(
-  aget "/*" do
+  get "/*" do
 
     # we run the stats collection in the next_tick method of EventMachine
     # so we don't block this request
@@ -29,15 +31,18 @@ class Redirector < Sinatra::Base
 
     # and finally we redirect
     slug = params[:splat].first.split('/').last
+
+    redirect to "#{BASE_URL}/" if slug.nil? # http://cloudespok.es/
+
     redirect to(slug.numeric? ? challenge_url(slug) : member_url(slug))
   end
 
   def challenge_url(slug)
-    "http://www.cloudspokes.com/challenges/#{slug}"
+    "#{BASE_URL}/challenges/#{slug}"
   end
 
   def member_url(slug)
-    "http://www.cloudspokes.com/members/#{slug}"
+    "#{BASE_URL}/members/#{slug}"
   end
 
 end
