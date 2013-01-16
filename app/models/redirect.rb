@@ -15,11 +15,11 @@ class Redirect
   index ua:1
 
   def self.latest_hits
-    perform_map_reduce_on :rqst
+    Redirect.exists? ? perform_map_reduce_on(:rqst) : []
   end
 
   def self.latest_referrers
-    perform_map_reduce_on :refr
+    Redirect.exists? ? perform_map_reduce_on(:refr) : []
   end
 
   private
