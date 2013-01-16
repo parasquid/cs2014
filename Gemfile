@@ -42,10 +42,7 @@ gem 'eventmachine-le'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
-# see https://github.com/raggi/async_sinatra/issues/30
-# freeze once this has been released in the official gem
-#gem 'async_sinatra', git: 'git://github.com/soffes/async_sinatra.git', ref: 'f00c791c8baa150bea4de7a4efbe941b93470c02'
-gem 'async_sinatra', path: '../async_sinatra'
+gem 'async_sinatra'
 
 gem 'mongoid'
 
