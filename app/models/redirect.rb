@@ -38,7 +38,7 @@ class Redirect
         return result;
       }
     }
-    map_reduce(map(field), reduce).out(inline: true).map do |result|
+    map_reduce(map(field), reduce).out(inline: true).collect do |result|
       { url: result['_id'], count: result['value']['count'].to_i }
     end
   end
