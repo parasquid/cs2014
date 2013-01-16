@@ -43,6 +43,11 @@ describe "redirector core" do
       response.should redirect_to('http://www.cloudspokes.com/')
     end
 
+    it "redirects to the member if the last param is negative" do
+      get "/-2010"
+      response.should redirect_to('http://www.cloudspokes.com/members/-2010')
+    end
+
   end
 
 end
