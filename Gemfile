@@ -32,6 +32,7 @@ gem 'bootstrap-sass'
 # gem 'unicorn'
 gem 'rainbows'
 gem 'eventmachine-le'
+gem 'thin'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -49,7 +50,6 @@ gem 'mongoid'
 group :development, :test do
 	gem 'rspec-rails'
 	gem 'rspec'
-	gem 'thin'
 	gem 'sextant'
 	gem 'factory_girl_rails'
 end
