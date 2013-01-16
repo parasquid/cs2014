@@ -2,25 +2,37 @@ require 'spec_helper'
 describe "redirector core" do
   context 'cloudspokes original specifications' do
     it "redirects a url ending with an integer to the challenge url" do
-      aget "/2010"
+      get "/2010"
       response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
     end
 
     it "redirects a url ending with a string to the member url" do
-      aget "/mess"
+      get "/mess"
       response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
   end
 
-  context 'extra specifications for fun and profit' do
-    it "allows member urls to have extra paths appended" do
-      aget "/talesforce/past_challenges"
-      response.should redirect_to('http://www.cloudspokes.com/members/talesforce/past_challenges')
+  context 'edge cases' do
+    it "redirects correctly to the challenge if there are extra paths in the middle" do
+      get '/another/REFERRAL/path/that/ends/with/an/integer/2010'
+      response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
     end
 
-    it "allows challenge urls to have extra paths appended" do
-      aget "/2014/participants"
-      response.should redirect_to('http://www.cloudspokes.com/challenges/2014/participants')
+    it "redirects correctly to the member if there are extra paths in the middle" do
+      get '/another/REFERRAL/path/that/ends/with/a/string/mess'
+      response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
+
+    it 'redirects correctly to the member if the query params end with a string' do
+      get '/mess?challenge=2014'
+      response.should redirect_to('http://www.cloudspokes.com/members/mess')
+    end
+
+    it 'redirects correctly to the challenge if the query params end with an integer' do
+      get '/2010?member=mess'
+      response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
+    end
+
   end
+
 end

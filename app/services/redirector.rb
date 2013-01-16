@@ -9,6 +9,8 @@ class Redirector < Sinatra::Base
   end
   register Sinatra::Async
 
+  # rename this method to just 'get' for the tests to pass
+  # the testing helpers for async_sinatra don't support mounted sinatra apps yet :(
   aget "/*" do
 
     # we run the stats collection in the next tick of EventMachine
@@ -21,8 +23,8 @@ class Redirector < Sinatra::Base
    end
 
     # and finally we redirect
-    slug = params[:splat].first
-    redirect to(slug.split('/').first.numeric? ? challenge_url(slug) : member_url(slug))
+    slug = params[:splat].first.split('/').last
+    redirect to(slug.numeric? ? challenge_url(slug) : member_url(slug))
   end
 
   def challenge_url(slug)
