@@ -54,4 +54,5 @@ group :development, :test do
 	gem 'rspec'
 	gem 'thin'
 	gem 'sextant'
+	gem 'factory_girl_rails'
 end
