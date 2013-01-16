@@ -1,4 +1,4 @@
 class AdminController < ActionController::Base
-	def index
+	def dashboard
 	end
 end
