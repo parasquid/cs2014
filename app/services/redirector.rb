@@ -18,12 +18,12 @@ class Redirector < Sinatra::Base
     # we run the stats collection in the next_tick method of EventMachine
     # so we don't block this request
     EM.next_tick do
-     Redirect.create({
-      rqst: request.url,
-      refr: request.referrer,
-      ip: request.ip,
-      ua: request.user_agent
-    })
+      Redirect.create({
+        rqst: request.url,
+        refr: request.referrer,
+        ip: request.ip,
+        ua: request.user_agent
+      })
     end
 
     # place any extra calls or methods here e.g. affiliate tracking stuff
@@ -33,7 +33,6 @@ class Redirector < Sinatra::Base
     slug = params[:splat].first.split('/').last
 
     redirect to "#{BASE_URL}/" if slug.nil? # http://cloudespok.es/
-
     redirect to(slug.numeric? ? challenge_url(slug) : member_url(slug))
   end
 
@@ -49,6 +48,7 @@ end
 
 class String
   def numeric?
-    !!self.match(/\A[+-]?\d+\Z/)
+    # the regex means: all characters in this string is a number
+    !!self.match(/\A\d+\Z/)
   end
 end
