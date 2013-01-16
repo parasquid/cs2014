@@ -29,6 +29,8 @@ gem 'jquery-rails'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'rainbows'
+gem 'eventmachine-le'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -38,9 +40,11 @@ gem 'jquery-rails'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'async_sinatra'
 
 gem 'mongoid'
 
 group :development, :test do
 	gem 'rspec-rails'
+	gem 'thin'
 end

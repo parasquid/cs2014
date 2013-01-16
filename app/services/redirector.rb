@@ -1,12 +1,15 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'sinatra/async'
 
 class Redirector < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
+    enable :logging
   end
+  register Sinatra::Async
 
-  get "/*" do
+  aget "/*" do
     slug = params[:splat].first
     redirect to(slug.split('/').first.numeric? ? challenge_url(slug) : member_url(slug))
   end
