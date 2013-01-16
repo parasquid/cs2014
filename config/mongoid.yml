@@ -84,4 +84,5 @@ production:
     default:
       uri: <%= ENV['MONGOLAB_URI'] %>
       options:
-  options:
+        skip_version_check: true
+        safe: true
