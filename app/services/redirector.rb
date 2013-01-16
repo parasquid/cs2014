@@ -13,14 +13,19 @@ class Redirector < Sinatra::Base
   # the testing helpers for async_sinatra don't support mounted sinatra apps yet :(
   aget "/*" do
 
-    # we run the stats collection in the next tick of EventMachine
+    # we run the stats collection in the next_tick method of EventMachine
     # so we don't block this request
     EM.next_tick do
-     Redirect.create rqst: request.url,
+     Redirect.create({
+      rqst: request.url,
       refr: request.referrer,
       ip: request.ip,
       ua: request.user_agent
-   end
+    })
+    end
+
+    # place any extra calls or methods here e.g. affiliate tracking stuff
+    # make sure to wrap them in EM.next_tick so we don't block this request!
 
     # and finally we redirect
     slug = params[:splat].first.split('/').last

@@ -13,24 +13,29 @@ describe "redirector core" do
   end
 
   context 'edge cases' do
-    it "redirects correctly to the challenge if there are extra paths in the middle" do
+    it "redirects to the challenge if there are extra paths in the middle" do
       get '/another/REFERRAL/path/that/ends/with/an/integer/2010'
       response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
     end
 
-    it "redirects correctly to the member if there are extra paths in the middle" do
+    it "redirects to the member if there are extra paths in the middle" do
       get '/another/REFERRAL/path/that/ends/with/a/string/mess'
       response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
 
-    it 'redirects correctly to the member if the query params end with a string' do
+    it 'redirects to the member if the query params end with a string' do
       get '/mess?challenge=2014'
       response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
 
-    it 'redirects correctly to the challenge if the query params end with an integer' do
+    it 'redirects to the challenge even if the query params end with an integer' do
       get '/2010?member=mess'
       response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
+    end
+
+    it 'redirects to the member even if the member has numbers at the end' do
+      get '/josette1311'
+      response.should redirect_to('http://www.cloudspokes.com/members/josette1311')
     end
 
   end
