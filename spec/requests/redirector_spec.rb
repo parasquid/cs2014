@@ -23,12 +23,12 @@ describe "redirector core" do
       response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
 
-    it 'redirects to the challenge if the query params end with a string' do
+    it 'redirects to the member if the query params end with an integer' do
       get '/mess?challenge=2014'
       response.should redirect_to('http://www.cloudspokes.com/members/mess')
     end
 
-    it 'redirects to the member even if the query params end with an integer' do
+    it 'redirects to the challenge even if the query params end with a string' do
       get '/2010?member=mess'
       response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
     end
