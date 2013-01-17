@@ -1,2 +1,40 @@
-== Cloudspokes Challenge 2014: CloudSpok.es URL Shortening Service
+== CloudSpokes Challenge 2014: CloudSpok.es URL Shortening Service
 
+Sample app at http://parasquid-cs2014.herokuapp.com/
+
+Note: the specs as is aren't passing because of a bug in the async_sinatra
+rspec helpers. In order to properly test the app/services/redirector.rb you'll
+have to rename the aget method to get (force the methods to become synchronous
+again).
+
+=== What's special about this application:
+* At its core is a Sinatra app which is very fast.
+* Aside from being a Sinatra app, it also uses EventMachine which is the NodeJS
+  equivalent in Ruby. This means IO operations are nonblocking.
+* This also means that if there's extra logic involved (like for example, affiliate
+  parameters) the redirector itself won't suffer a performance hit.
+* The way the app is written is synchronous even if it is asynchronous in execution.
+  That means code is easily understood and refactored.
+* The Sinatra app is mounted inside Rails - that means it is able to share in
+  Rails models, views, sessions, etc.
+* Because of the sharing, we have all of the conveniences that Rails provides,
+  like an ActiveRecord interface for Mongoid or rspec-rails (this is one of the
+  many reasons why I think Ruby right now is better than NodeJS -- the amount of
+  libraries and prewritten/pretested code available is much more, and I don't have
+  to write my own solutions to problems that have already been solved by others).
+* We gather statistics: the original request, referrer, user-agent, and ip.
+* A simple admin dashboard is provided that shows a leaderboard of requests and
+  referrers.
+* In order to create the leaderboard, I showed how map-reduce in MongoDB is used.
+* TDD (test driven development) was used :)
+* Live blogging! (link to follow once article is polished and deployed)
+
+=== How to set this up
+* Clone the git repository
+* heroku apps:create <name-of-app>
+* heroku addons:add mongohq:sandbox
+* There's a bug with heroku and mongolab/mongohq http://stackoverflow.com/questions/11494134/mongoid-3-heroku-mongohq-cause-mopederrorsoperationfailure so instead of putting <%= ENV['MONGOHQ_URL'] %> you'd
+  need to paste the whole url in. heroku config | grep MONGO to get your url string.
+* rake spec to test (note that you'd first have to change the aget to get so the tests pass)
+* git push heroku master to deploy
+* And that's it!
