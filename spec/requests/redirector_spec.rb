@@ -48,6 +48,25 @@ describe "redirector core" do
       response.should redirect_to('http://www.cloudspokes.com/members/-2010')
     end
 
+    it "redirects to the member even with double slashes" do
+      get "//whatever//mess"
+      response.should redirect_to('http://www.cloudspokes.com/members/mess')
+    end
+
+    it "redirects to the challenge even with double slashes" do
+      get "//whatever//2010"
+      response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
+    end
+
+    it "redirects to the member even with trailing slashes" do
+      get "//whatever//mess//"
+      response.should redirect_to('http://www.cloudspokes.com/members/mess')
+    end
+
+    it "redirects to the challenge even with trailing slashes" do
+      get "//whatever//2010//"
+      response.should redirect_to('http://www.cloudspokes.com/challenges/2010')
+    end
   end
 
 end
